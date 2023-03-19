@@ -1,12 +1,14 @@
-<mat-card>
-  <mat-card-title>User Profile</mat-card-title>
-  <mat-card-content>
-    <h1>Welcome, {{ user.displayName || user.email }}</h1>
-    <p>Email: {{ user.email }}</p>
-    <p *ngIf="user.displayName">Name: {{ user.displayName }}</p>
-    <p *ngIf="user.photoURL">
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">User Profile</h5>
+  </div>
+  <div class="card-body">
+    <h1 class="card-title">Welcome, {{ user.displayName || user.email }}</h1>
+    <p class="card-text">Email: {{ user.email }}</p>
+    <p *ngIf="user.displayName" class="card-text">Name: {{ user.displayName }}</p>
+    <p *ngIf="user.photoURL" class="card-text">
       <img [src]="user.photoURL" alt="{{ user.displayName }}" width="100" />
     </p>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
