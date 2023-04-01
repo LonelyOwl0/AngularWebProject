@@ -79,6 +79,7 @@ export class AuthService {
       if (user) {
         await user.sendEmailVerification();
       }
+      this.snackBar.open('Signed up successfully.', '', { duration: 3000 });
     } catch (error) {
       console.error('Error sending verification email:', error);
     }
@@ -87,8 +88,6 @@ export class AuthService {
   getUser(): Observable<firebase.User | null> {
     return this.afAuth.authState;
   }
-
-
 
 
 }

@@ -16,6 +16,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {AngularFireAuthGuard, redirectUnauthorizedTo} from '@angular/fire/compat/auth-guard';
+import {QuizParamsComponent} from './quiz-params/quiz-params.component';
+import { HttpClientModule } from '@angular/common/http';
+import { QuizComponent } from './quiz/quiz.component';
 
 
 const appRoutes: Routes = [
@@ -30,13 +33,20 @@ const appRoutes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])}
   },
+  {
+    path: 'quiz-params', component: QuizParamsComponent, canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])},
+
+  },
+  { path: 'quiz', component: QuizComponent, canActivate: [AngularFireAuthGuard] }
+
 
 
 ];
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, ResetPasswordComponent, UserProfileComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, ResetPasswordComponent, UserProfileComponent, QuizParamsComponent, QuizComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -47,7 +57,8 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatButtonModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
