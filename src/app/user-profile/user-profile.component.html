@@ -4,8 +4,6 @@
   <mat-card-content>
     <!-- Display user information here -->
     <h1 class="card-title">Welcome, {{ user.displayName || user.email }}</h1>
-    <p class="card-text">Email: {{ user.email }}</p>
-    <p *ngIf="user.displayName" class="card-text">Name: {{ user.displayName }}</p>
     <p *ngIf="user.photoURL" class="card-text">
       <img [src]="user.photoURL" alt="{{ user.displayName }}" width="100" />
     </p>
