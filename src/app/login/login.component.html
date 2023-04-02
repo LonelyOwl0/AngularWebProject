@@ -15,9 +15,9 @@
         <label for="password">Password</label>
         <input class="form-control" [(ngModel)]="password" name="password" type="password" required />
       </div>
-      <button class="btn btn-primary" type="submit">Log In</button> <br>
-      <button class="btn btn-secondary" (click)="goToSignUp()">Sign Up</button> <br>
-      <button class="btn btn-danger" (click)="goToResetPassword()">Forgot Your Password?</button> <br>
+      <button mat-raised-button color="primary" class="btn btn-primary" type="submit">Log In</button>
+      <button mat-raised-button color="primary" class="btn btn-secondary" (click)="goToSignUp()">Sign Up</button> 
+      <button mat-raised-button color="primary" class="btn btn-danger" (click)="goToResetPassword()">Forgot Your Password?</button>
     </form>
   </div>
 </div>
