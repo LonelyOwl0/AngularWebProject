@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef>Date</th>
-      <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.date.slice(0,16).replace("T","        ") }}</td>
     </ng-container>
 
     <ng-container matColumnDef="score">
