@@ -7,7 +7,7 @@ import {environment} from '../environments/environment';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,7 +19,11 @@ import {AngularFireAuthGuard, redirectUnauthorizedTo} from '@angular/fire/compat
 import { HttpClientModule } from '@angular/common/http';
 import { QuizSettingsComponent } from './quiz-settings/quiz-settings.component';
 import { QuizComponent } from './quiz/quiz.component';
-import { QuizPageComponent } from './quiz-page/quiz-page.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import { QuizResultsComponent } from './quiz-results/quiz-results.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 
@@ -35,13 +39,19 @@ const appRoutes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])}
   },
-  { path: 'quiz', component: QuizComponent },
-  { path: 'quiz-page', component: QuizPageComponent }
+  {path:'quiz-settings', component : QuizSettingsComponent,canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])}},
+  {path:'quiz', component : QuizComponent,canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])}},
+  { path: 'quiz-results', component: QuizResultsComponent,canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])}
+  },
+
 ];
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, ResetPasswordComponent, UserProfileComponent, QuizSettingsComponent, QuizComponent, QuizPageComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, ResetPasswordComponent, UserProfileComponent, QuizSettingsComponent, QuizComponent, QuizResultsComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -54,10 +64,14 @@ const appRoutes: Routes = [
     MatCardModule,
     MatInputModule,
     HttpClientModule,
-
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatTableModule,
   ],
   providers: [],
-  bootstrap: [AppComponent,QuizComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

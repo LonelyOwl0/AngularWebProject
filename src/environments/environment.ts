@@ -7,6 +7,7 @@ export const environment = {
     storageBucket: "loginproject-835aa.appspot.com",
     messagingSenderId: "643788678068",
     appId: "1:643788678068:web:f0930117ee1846f21808e1",
-    measurementId: "G-WEVRVXX7MF"
+    measurementId: "G-WEVRVXX7MF",
+    databaseURL : "https://loginproject-835aa-default-rtdb.europe-west1.firebasedatabase.app/"
   }
 };

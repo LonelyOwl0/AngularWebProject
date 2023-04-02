@@ -30,4 +30,8 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  backToQuizSettings() {
+    this.router.navigate(['/quiz-settings']);
+  }
+
 }
