@@ -40,7 +40,7 @@ export class QuizComponent implements OnInit {
   }
 
   fetchQuestions() {
-    const { category, difficulty, type, amount } = this.quizSettings;
+    const {category, difficulty, type, amount} = this.quizSettings;
     const apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`;
 
     this.http.get<{ results: Question[] }>(apiUrl).subscribe((response) => {
@@ -85,7 +85,15 @@ export class QuizComponent implements OnInit {
       date: new Date().toISOString(),
     };
 
-    const userName = this.user.displayName;
+    let userName = ""
+    if (this.user.displayName == null) {
+      console.log("THIS GUY IS CONNECTED WITH HIS EMAIL :");
+      userName = this.user.email.split("@")[0]; ;
+      console.log(userName);
+    } else {
+      console.log("THIS GUY IS CONNECTED WITH GMAIL");
+      userName = this.user.displayName;
+    }
     this.db.list(`quizResults/${userName}`).push(quizResult);
     this.submitted = true;
   }
