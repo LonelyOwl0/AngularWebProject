@@ -1,39 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { QuizService } from '../services/quiz.service';
-import { QuizQuestion } from '../models/quiz-question.model';
-import { ActivatedRoute } from '@angular/router';
-import {QuizParams} from "../models/quiz-params.model";
+import { Component } from '@angular/core';
+import { OpenTdbService } from '../open-tdb.service';
+import { Router } from "@angular/router";
+import {QuizServiceService} from "../quiz-service.service";
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+  styleUrls: ['./quiz.component.css']
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent {
+  score: number = 0;
+  quizCompleted: boolean = false;
+  quizQuestions: any[] = [];
 
-  quizQuestions: QuizQuestion[] = [];
+  constructor(private openTdbService: OpenTdbService, private router: Router,private quizService: QuizServiceService) { }
 
-  constructor(private quizService: QuizService, private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const quizParams = {
-        theme: params['theme'],
-        level: params['level'],
-        numQuestions: params['numQuestions']
-      };
-      this.generateQuiz(quizParams);
+  onSettingsSubmitted(settings: { numberOfQuestions: any; category: any; difficulty: any; type: any; }) {
+    this.openTdbService.getQuizQuestions(settings).subscribe(response => {
+      this.quizQuestions = response.results;
+      this.router.navigate(['/quiz-page', { quizQuestions: JSON.stringify(this.quizQuestions) }]);
     });
   }
 
-  async generateQuiz(quizParams: QuizParams) {
-    try {
-      const questions: QuizQuestion[] = await this.quizService.generateQuiz(quizParams.theme, quizParams.level, quizParams.numQuestions);
-      this.quizQuestions = questions;
-    } catch (error) {
-      console.error('Error generating quiz:', error);
-    }
+  onQuizCompleted(userAnswers: number[]) {
+    debugger;
+    console.log("I am called");
+    this.score = 0;
+    this.quizQuestions.forEach((question, index) => {
+      if (question.correct_answer === question.options[userAnswers[index]]) {
+        this.score++;
+      }
+    });
+    this.quizCompleted = true;
+    console.log("The quiz is over ");
   }
-
-
 }

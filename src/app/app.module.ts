@@ -16,9 +16,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {AngularFireAuthGuard, redirectUnauthorizedTo} from '@angular/fire/compat/auth-guard';
-import {QuizParamsComponent} from './quiz-params/quiz-params.component';
 import { HttpClientModule } from '@angular/common/http';
+import { QuizSettingsComponent } from './quiz-settings/quiz-settings.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { QuizPageComponent } from './quiz-page/quiz-page.component';
+
 
 
 const appRoutes: Routes = [
@@ -33,20 +35,13 @@ const appRoutes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])}
   },
-  {
-    path: 'quiz-params', component: QuizParamsComponent, canActivate: [AngularFireAuthGuard],
-    data: {authGuardPipe: () => redirectUnauthorizedTo(['/login'])},
-
-  },
-  { path: 'quiz', component: QuizComponent, canActivate: [AngularFireAuthGuard] }
-
-
-
+  { path: 'quiz', component: QuizComponent },
+  { path: 'quiz-page', component: QuizPageComponent }
 ];
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, ResetPasswordComponent, UserProfileComponent, QuizParamsComponent, QuizComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, ResetPasswordComponent, UserProfileComponent, QuizSettingsComponent, QuizComponent, QuizPageComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -59,9 +54,10 @@ const appRoutes: Routes = [
     MatCardModule,
     MatInputModule,
     HttpClientModule,
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,QuizComponent]
 })
 export class AppModule {
 }

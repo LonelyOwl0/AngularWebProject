@@ -1,14 +1,10 @@
+<app-quiz-settings (settingsSubmitted)="onSettingsSubmitted($event)"></app-quiz-settings>
+
 <div *ngIf="quizQuestions.length > 0">
-  <h1>Quiz</h1>
-  <div *ngFor="let question of quizQuestions; let i = index">
-    <h2>Question {{ i + 1 }}</h2>
-    <p>{{ question.question }}</p>
-    <ul>
-      <li *ngFor="let choice of question.choices">
-        <input type="radio" id="{{ choice }}" name="{{ i }}" value="{{ choice }}">
-        <label for="{{ choice }}">{{ choice }}</label>
-      </li>
-    </ul>
-  </div>
-  <button>Submit Quiz</button>
+  <app-quiz-page [quizQuestions]="quizQuestions" (quizCompleted)="onQuizCompleted(quizQuestions)"></app-quiz-page>
+</div>
+
+<div *ngIf="quizCompleted">
+  <h2>Your score: {{ score }} / {{ quizQuestions.length }}</h2>
+  <button (click)="quizCompleted = false">Retry</button>
 </div>
