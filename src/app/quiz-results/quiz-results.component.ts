@@ -18,7 +18,15 @@ export class QuizResultsComponent implements OnInit {
   ngOnInit() {
     this.authService.getUser().subscribe((user) => {
       this.user = user;
-      const userName = this.user.displayName;
+      let userName = ""
+      if (this.user.displayName == null) {
+        console.log("THIS GUY IS CONNECTED WITH HIS EMAIL :");
+        userName = this.user.email.split("@")[0]; ;
+        console.log(userName);
+      } else {
+        console.log("THIS GUY IS CONNECTED WITH GMAIL");
+        userName = this.user.displayName;
+      }
       this.db.list(`quizResults/${userName}`).valueChanges().subscribe((results) => {
         this.quizResults = results;
       });
